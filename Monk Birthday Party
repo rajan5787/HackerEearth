@@ -1,0 +1,59 @@
+package graph;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Stack;
+public class MonkBirthdayParty {
+	public static void main(String argv[]) throws NumberFormatException, IOException{
+		BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
+
+		ArrayList<ArrayList<Integer>> mArrayList=new ArrayList<ArrayList<Integer>>();
+		String[] data=b.readLine().split(" ");
+		int n=Integer.parseInt(data[0]);
+		int m=Integer.parseInt(data[1]);
+		int i=0;
+		for(i=0;i<=n;i++){
+			mArrayList.add(new ArrayList<Integer>());
+		}
+		for(i=0;i<m;i++){
+			data=b.readLine().split(" ");
+			mArrayList.get(Integer.parseInt(data[0])).add(Integer.parseInt(data[1]));
+		}
+
+		System.out.println(dfs(mArrayList,n)); 
+
+	}
+	public static long dfs(ArrayList<ArrayList<Integer>> mArrayList,int n){
+
+		long ans=1000000;
+		for(int i=1;i<=n;i++){
+			int[] visited=new int[n+1];
+			Stack<Integer> stack=new Stack<Integer>();
+			long sum=0;
+			if(visited[i]==1){
+				continue;
+			}
+			stack.push(i);
+			while(!stack.isEmpty()){
+				int element=stack.pop();
+				if(visited[element]==0){
+					visited[element]=1;
+					sum++;
+					Stack<Integer> extraStack = new Stack<Integer>();
+					for(int y:mArrayList.get(element)){
+						extraStack.push(y);	
+					}
+					while(!extraStack.isEmpty()){
+						stack.push(extraStack.pop());
+					}
+				}
+			}
+			if(sum<ans)
+				ans=sum;
+		}
+		return ans;
+
+	}
+}
