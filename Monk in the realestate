@@ -1,0 +1,27 @@
+package graph;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Monkintherealestate {
+	public static void main(String argv[]) throws NumberFormatException, IOException{
+		BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
+		int t=Integer.parseInt(b.readLine().trim());
+		while(t--!=0){
+			int sum=0;
+			int n=Integer.parseInt(b.readLine());
+			int array[]=new int [10002];
+			while(n--!=0){
+				String[] s=b.readLine().split(" ");
+				array[Integer.parseInt(s[0])]=1;
+				array[Integer.parseInt(s[1])]=1;
+			}
+			for(int i=0;i<array.length;i++){
+				if(array[i]==1)
+					sum++;
+			}
+			System.out.println(sum);
+		}
+	}
+}
