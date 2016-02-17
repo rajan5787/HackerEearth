@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+public class CityandFlood {
+	static int[] size=new int[100001];
+	static int count=0;
+	public static void main(String argv[]){
+		Scanner asd=new Scanner(System.in);
+		int n=asd.nextInt();
+		int k=asd.nextInt();
+		int[] array=new int[n+1];
+		for(int i=1;i<=n;i++){
+			array[i]=i;
+		}
+		for(int i=1;i<=k;i++){
+			union(array,asd.nextInt(),asd.nextInt());
+		}
+		System.out.println(n-count);
+	}
+	public static void union(int[] array,int x,int y){
+		int root_x=root(array,x);
+		int root_y=root(array,y);
+
+		if(root_x!=root_y)
+			count++;
+		if(size[x]>size[y]){
+			array[y]=array[x];
+			size[x]++;
+		}
+		else{
+			array[x]=array[y];
+			size[y]++;
+		}
+	}
+	public static int root(int array[],int i){
+		while(array[i]!=i){
+			array[i]=array[array[i]];
+			i=array[i];
+		}
+		return i;
+	}
+
+}
